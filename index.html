@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Ribbon Cake - Delicious cakes made with love and care</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --primary: #e63946;
+            --secondary: #f1faee;
+            --accent: #a8dadc;
+            --dark: #1d3557;
+            --light: #f8f9fa;
+            --text: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background-color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #a4161a 100%);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: white;
+            margin-left: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .logo-icon {
+            color: white;
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 30px;
+        }
+        
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .mobile-menu {
+            display: none;
+            background: var(--primary);
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu ul {
+            list-style: none;
+        }
+        
+        .mobile-menu ul li {
+            margin-bottom: 15px;
+        }
+        
+        .mobile-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1089&q=80') no-repeat center center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            text-align: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+        }
+        
+        .hero-content {
+            position: relative;
+            color: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+        }
+        
+        .btn:hover {
+            background: #d90429;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.6);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Cakes Gallery */
+        .cakes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .cake-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .cake-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .cake-img {
+            height: 250px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .cake-info {
+            padding: 20px;
+        }
+        
+        .cake-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .cake-info p {
+            color: #666;
+            margin-bottom: 15px;
+            min-height: 60px;
+        }
+        
+        .cake-price {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Order Form */
+        .order-form {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+        }
+        
+        .form-group {
+            flex: 1 0 300px;
+            padding: 0 15px;
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+        
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* Admin Section */
+        .admin-section {
+            background: var(--secondary);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Social Media */
+        .social-section {
+            background: linear-gradient(135deg, var(--dark) 0%, #14213d 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            font-size: 1.8rem;
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-8px);
+            background: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 3.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-content {
+                padding: 10px 0;
+            }
+            
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+            
+            .order-form,
+            .admin-section {
+                padding: 25px;
+            }
+            
+            .form-group {
+                flex: 1 0 100%;
+            }
+            
+            .social-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title p {
+                font-size: 1rem;
+            }
+            
+            .cake-info h3 {
+                font-size: 1.3rem;
+            }
+            
+            .cake-info p {
+                font-size: 0.9rem;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animated {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 2000;
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        /* Admin Login */
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .login-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .login-form .btn {
+            width: 100%;
+        }
+        
+        /* Loading Spinner */
+        .loader {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Currency formatting */
+        .lkr {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-birthday-cake logo-icon"></i>
+                <h1>Red Ribbon Cake</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#cakes">Our Cakes</a></li>
+                    <li><a href="#order">Order Now</a></li>
+                    <li class="admin-link hidden"><a href="#admin">Admin</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobile-menu">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#cakes">Our Cakes</a></li>
+                <li><a href="#order">Order Now</a></li>
+                <li class="admin-link hidden"><a href="#admin">Admin</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Delicious cakes made with love and care</h2>
+            <p>Celebrate life's sweetest moments with our handcrafted masterpieces</p>
+            <a href="#order" class="btn">Order Now</a>
+        </div>
+    </section>
+
+    <!-- Cakes Section -->
+    <section id="cakes" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Signature Cakes</h2>
+                <p>Each cake is a masterpiece, carefully crafted with the finest ingredients and a whole lot of love</p>
+            </div>
+            <div class="cakes-container" id="cakes-container">
+                <!-- Cakes will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section id="order" class="section" style="background-color: var(--secondary);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Place Your Order</h2>
+                <p>Fill out the form below and we'll prepare your cake with love and care</p>
+            </div>
+            <form class="order-form animated" id="order-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="John Smith" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="john@example.com" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="(123) 456-7890" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Delivery Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cake">Select Cake</label>
+                        <select id="cake" required>
+                            <option value="">Choose a cake</option>
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="size">Cake Size</label>
+                        <select id="size" required>
+                            <option value="">Select size</option>
+                            <option value="small">Small (6") - Serves 8-10</option>
+                            <option value="medium">Medium (8") - Serves 12-16</option>
+                            <option value="large">Large (10") - Serves 20-24</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Special Instructions</label>
+                    <textarea id="message" placeholder="Any special requests, dietary restrictions, or decoration preferences..."></textarea>
+                </div>
+                
+                <div class="form-group" style="text-align: center; margin-top: 20px;">
+                    <div class="loader" id="order-loader"></div>
+                    <button type="submit" class="btn" id="order-btn">Place Order</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Admin Section (Hidden by default) -->
+    <section id="admin" class="section hidden">
+        <div class="container">
+            <div class="section-title">
+                <h2>Admin Panel</h2>
+                <p>Add new cakes to our delicious collection</p>
+            </div>
+            <div class="admin-section animated">
+                <h3 style="text-align: center; margin-bottom: 30px; color: var(--primary);">Add New Cake</h3>
+                <form id="admin-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cake-name">Cake Name</label>
+                            <input type="text" id="cake-name" placeholder="Cake Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cake-price">Price (LKR)</label>
+                            <input type="number" id="cake-price" placeholder="4500" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cake-description">Description</label>
+                        <textarea id="cake-description" placeholder="Describe the cake..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cake-image">Upload Cake Image</label>
+                        <input type="file" id="cake-image" accept="image/*" required>
+                        <div id="image-preview" style="margin-top: 15px; display: none;">
+                            <img id="preview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid #ddd;">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="text-align: center; margin-top: 20px;">
+                        <div class="loader" id="admin-loader"></div>
+                        <button type="submit" class="btn" id="admin-btn">Add Cake</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section (Hidden by default) -->
+    <section id="login" class="section hidden">
+        <div class="container">
+            <div class="login-container">
+                <h2>Admin Login</h2>
+                <form class="login-form" id="login-form">
+                    <div class="form-group">
+                        <label for="admin-password">Password</label>
+                        <input type="password" id="admin-password" placeholder="Enter admin password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section id="contact" class="social-section section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Connect With Us</h2>
+                <p>Follow us on social media for the latest creations and promotions</p>
+            </div>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Red Ribbon Cake</h3>
+                    <p>Delicious cakes made with love and care since 2010</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: order@redribboncake.com</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Hours</h3>
+                    <p>Monday-Friday: 9am - 7pm</p>
+                    <p>Saturday-Sunday: 10am - 5pm</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Red Ribbon Cake. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <span id="notification-message">Order placed successfully!</span>
+    </div>
+
+    <script>
+        // Replace this with your published web app URL
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPIO0flqN5iKEKPRwAsyVDUSSOeX98Jip3jEoUBOPsYMFABYeueBwBEn59NCafOAWV/exec";
+
+// Global variables
+const cakes = [];
+const { jsPDF } = window.jspdf;
+
+// DOM Elements
+const cakesContainer = document.getElementById('cakes-container');
+const cakeSelect = document.getElementById('cake');
+const orderForm = document.getElementById('order-form');
+const adminForm = document.getElementById('admin-form');
+const loginForm = document.getElementById('login-form');
+const notification = document.getElementById('notification');
+const notificationMessage = document.getElementById('notification-message');
+const orderBtn = document.getElementById('order-btn');
+const adminBtn = document.getElementById('admin-btn');
+const orderLoader = document.getElementById('order-loader');
+const adminLoader = document.getElementById('admin-loader');
+const adminSection = document.getElementById('admin');
+const loginSection = document.getElementById('login');
+const adminLinks = document.querySelectorAll('.admin-link');
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+
+// Check if user is logged in
+let isAdminLoggedIn = false;
+
+// Admin image preview
+document.getElementById('cake-image').addEventListener('change', function(e) {
+    const preview = document.getElementById('preview');
+    const previewContainer = document.getElementById('image-preview');
+    
+    if (this.files && this.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            previewContainer.style.display = 'block';
+        }
+        
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+
+// Format price as LKR
+function formatPrice(price) {
+    return `LKR ${parseFloat(price).toLocaleString('en-LK', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+}
+
+// Load cakes from backend
+function loadCakes() {
+    fetch(`${SCRIPT_URL}?action=getCakes`)
+        .then(response => response.json())
+        .then(data => {
+            // Clear existing cakes
+            cakes.length = 0;
+            cakesContainer.innerHTML = '';
+            cakeSelect.innerHTML = '<option value="">Choose a cake</option>';
+            
+            // Add cakes to the page
+            data.forEach(cake => {
+                cakes.push(cake);
+                
+                // Add to gallery
+                const cakeCard = document.createElement('div');
+                cakeCard.className = 'cake-card animated';
+                cakeCard.innerHTML = `
+                    <div class="cake-img" style="background-image: url('${cake.imageUrl}')"></div>
+                    <div class="cake-info">
+                        <h3>${cake.name}</h3>
+                        <p>${cake.description}</p>
+                        <div class="cake-price">${formatPrice(cake.price)}</div>
+                        <button class="btn" onclick="addToOrder(${cake.id})">Add to Order</button>
+                    </div>
+                `;
+                cakesContainer.appendChild(cakeCard);
+                
+                // Add to dropdown
+                const option = document.createElement('option');
+                option.value = cake.id;
+                option.textContent = `${cake.name} - ${formatPrice(cake.price)}`;
+                cakeSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error loading cakes:', error);
+            showNotification('Failed to load cakes', false);
+        });
+}
+
+// Add cake to order form
+function addToOrder(cakeId) {
+    const cake = cakes.find(c => c.id === cakeId);
+    if (cake) {
+        cakeSelect.value = cakeId;
+        document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Show notification
+function showNotification(message, isSuccess = true) {
+    notificationMessage.textContent = message;
+    notification.style.background = isSuccess ? '#4CAF50' : '#e63946';
+    notification.classList.add('show');
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+
+// Generate PDF receipt
+function generateReceipt(orderData) {
+    const doc = new jsPDF();
+    
+    // Add receipt content
+    doc.setFontSize(22);
+    doc.text('Red Ribbon Cake', 105, 20, null, null, 'center');
+    
+    doc.setFontSize(16);
+    doc.setTextColor(100);
+    doc.text('Order Receipt', 105, 30, null, null, 'center');
+    
+    doc.setLineWidth(0.5);
+    doc.line(20, 35, 190, 35);
+    
+    doc.setFontSize(12);
+    doc.setTextColor(0);
+    doc.text(`Order Date: ${new Date().toLocaleDateString()}`, 20, 45);
+    doc.text(`Customer: ${orderData.name}`, 20, 55);
+    doc.text(`Email: ${orderData.email}`, 20, 65);
+    doc.text(`Phone: ${orderData.phone}`, 20, 75);
+    
+    doc.setFontSize(14);
+    doc.text('Order Details', 20, 90);
+    
+    doc.setLineWidth(0.2);
+    doc.line(20, 92, 60, 92);
+    
+    const cake = cakes.find(c => c.id == orderData.cakeId);
+    doc.text(`Cake: ${cake ? cake.name : 'Custom Cake'}`, 20, 100);
+    doc.text(`Size: ${orderData.size}`, 20, 110);
+    doc.text(`Delivery Date: ${orderData.date}`, 20, 120);
+    
+    if (orderData.message) {
+        doc.text(`Special Instructions: ${orderData.message}`, 20, 130);
+    }
+    
+    doc.setFontSize(16);
+    doc.setTextColor(230, 57, 70);
+    doc.text('Thank you for your order!', 105, 150, null, null, 'center');
+    doc.setTextColor(100);
+    doc.setFontSize(12);
+    doc.text('Your cake is being prepared with love and care', 105, 160, null, null, 'center');
+    
+    // Save the PDF
+    doc.save('RedRibbonCake_Receipt.pdf');
+}
+
+// Toggle admin section
+function toggleAdminSection(show) {
+    if (show) {
+        adminSection.classList.remove('hidden');
+        loginSection.classList.add('hidden');
+        adminLinks.forEach(link => link.classList.remove('hidden'));
+    } else {
+        adminSection.classList.add('hidden');
+        loginSection.classList.add('hidden');
+        adminLinks.forEach(link => link.classList.add('hidden'));
+    }
+}
+
+// Smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth'
+            });
+            
+            // Close mobile menu if open
+            mobileMenu.classList.remove('active');
+        }
+    });
+});
+
+// Mobile menu toggle
+mobileMenuBtn.addEventListener('click', function() {
+    mobileMenu.classList.toggle('active');
+});
+
+// Order form submission
+orderForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const date = document.getElementById('date').value;
+    const cakeId = document.getElementById('cake').value;
+    const size = document.getElementById('size').value;
+    const message = document.getElementById('message').value;
+    
+    // Validate form
+    if (!name || !email || !phone || !date || !cakeId || !size) {
+        showNotification('Please fill all required fields', false);
+        return;
+    }
+    
+    // Show loader
+    orderLoader.style.display = 'block';
+    orderBtn.style.display = 'none';
+    
+    // Prepare form data
+    const formData = new FormData();
+    formData.append('action', 'addOrder');
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('date', date);
+    formData.append('cakeId', cakeId);
+    formData.append('size', size);
+    formData.append('message', message);
+    
+    // Send to backend
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Hide loader, show button
+        orderLoader.style.display = 'none';
+        orderBtn.style.display = 'inline-block';
+        
+        if (data.error) {
+            showNotification(`Error: ${data.error}`, false);
+        } else {
+            // Show success message
+            showNotification('Order placed successfully!');
+            
+            // Generate receipt
+            generateReceipt({name, email, phone, date, cakeId, size, message});
+            
+            // Reset form
+            orderForm.reset();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        orderLoader.style.display = 'none';
+        orderBtn.style.display = 'inline-block';
+        showNotification('Failed to place order', false);
+    });
+});
+
+// Admin form submission
+adminForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const cakeName = document.getElementById('cake-name').value;
+    const cakePrice = parseFloat(document.getElementById('cake-price').value);
+    const cakeDescription = document.getElementById('cake-description').value;
+    const cakeImage = document.getElementById('cake-image').files[0];
+    
+    if (!cakeName || !cakePrice || !cakeDescription) {
+        showNotification('Please fill all required fields', false);
+        return;
+    }
+    
+    if (isNaN(cakePrice) || cakePrice <= 0) {
+        showNotification('Please enter a valid price', false);
+        return;
+    }
+    
+    // Show loader
+    adminLoader.style.display = 'block';
+    adminBtn.style.display = 'none';
+    
+    // Prepare form data
+    const formData = new FormData();
+    formData.append('action', 'addCake');
+    formData.append('name', cakeName);
+    formData.append('price', cakePrice);
+    formData.append('description', cakeDescription);
+    
+    if (cakeImage) {
+        // Convert image to base64
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const base64 = event.target.result.split(',')[1];
+            const mimeType = cakeImage.type;
+            
+            formData.append('image', base64);
+            formData.append('mimeType', mimeType);
+            
+            // Send to backend
+            sendCakeData(formData);
+        };
+        reader.readAsDataURL(cakeImage);
+    } else {
+        // Send without image
+        sendCakeData(formData);
+    }
+});
+
+function sendCakeData(formData) {
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Hide loader, show button
+        adminLoader.style.display = 'none';
+        adminBtn.style.display = 'inline-block';
+        
+        if (data.error) {
+            showNotification(`Error: ${data.error}`, false);
+        } else {
+            // Add new cake to local array
+            cakes.push(data.cake);
+            
+            // Add to gallery
+            const cakeCard = document.createElement('div');
+            cakeCard.className = 'cake-card animated';
+            cakeCard.innerHTML = `
+                <div class="cake-img" style="background-image: url('${data.cake.imageUrl}')"></div>
+                <div class="cake-info">
+                    <h3>${data.cake.name}</h3>
+                    <p>${data.cake.description}</p>
+                    <div class="cake-price">${formatPrice(data.cake.price)}</div>
+                    <button class="btn" onclick="addToOrder(${data.cake.id})">Add to Order</button>
+                </div>
+            `;
+            cakesContainer.appendChild(cakeCard);
+            
+            // Add to dropdown
+            const option = document.createElement('option');
+            option.value = data.cake.id;
+            option.textContent = `${data.cake.name} - ${formatPrice(data.cake.price)}`;
+            cakeSelect.appendChild(option);
+            
+            // Show success message
+            showNotification('Cake added successfully!');
+            
+            // Reset form
+            adminForm.reset();
+            document.getElementById('image-preview').style.display = 'none';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        adminLoader.style.display = 'none';
+        adminBtn.style.display = 'inline-block';
+        showNotification('Failed to add cake', false);
+    });
+}
+
+// Login form submission
+loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const password = document.getElementById('admin-password').value;
+    
+    // Prepare form data
+    const formData = new FormData();
+    formData.append('action', 'login');
+    formData.append('password', password);
+    
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            showNotification(data.error, false);
+        } else {
+            isAdminLoggedIn = true;
+            toggleAdminSection(true);
+            showNotification('Admin login successful');
+            document.getElementById('admin-password').value = '';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Login failed', false);
+    });
+});
+
+// Initialize the page
+window.onload = function() {
+    loadCakes();
+    
+    // Set min date for delivery
+    const today = new Date();
+    const minDate = new Date(today);
+    minDate.setDate(minDate.getDate() + 2); // Minimum 2 days in advance
+    
+    const minDateStr = minDate.toISOString().split('T')[0];
+    document.getElementById('date').min = minDateStr;
+    
+    // Check for admin access in URL
+    if (window.location.hash === '#admin') {
+        loginSection.classList.remove('hidden');
+        document.getElementById('login').scrollIntoView();
+    }
+};
+
+// Make functions available globally
+window.addToOrder = addToOrder;
+    </script>
+</body>
+</html>
